@@ -1,0 +1,27 @@
+[project]
+name = "duality-automation-framework"
+version = "0.1.0"
+description = "Python + Playwright UI automation framework for the Duality Student Automation Developer home assignment"
+readme = "README.md"
+authors = [
+    { name = "dan.lilian", email = "Ldan1307@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "playwright>=1.59.0",
+    "pytest>=9.0.3",
+    "pytest-html>=4.2.0",
+    "pytest-playwright>=0.7.2",
+]
+
+[tool.uv.build-backend]
+module-name = "framework"
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.12",
+]
