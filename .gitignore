@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtualenv
+.venv/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Output (folder tracked, contents ignored)
+output/reports/*
+!output/reports/.gitkeep
+output/data/*
+!output/data/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+
+# Environment files
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
