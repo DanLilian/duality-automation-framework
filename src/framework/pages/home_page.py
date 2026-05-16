@@ -10,3 +10,6 @@ class HomePage(BasePage):
     
     def click_notification_messages_link(self) -> None:
         self.page.get_by_role("link", name="Notification Messages").click()
+
+    def click_challenging_dom_link(self) -> None:   
+        self.page.get_by_role("link", name="Challenging DOM").click()
