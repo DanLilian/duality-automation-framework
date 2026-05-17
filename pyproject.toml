@@ -22,7 +22,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short --html=output/reports/report.html --self-contained-html"
 
 [build-system]
 requires = ["uv_build>=0.11.14,<0.12.0"]
