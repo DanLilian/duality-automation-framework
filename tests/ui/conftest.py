@@ -22,3 +22,18 @@ def notification_page(page: Page) -> NotificationPage:
 @pytest.fixture
 def challenging_dom_page(page: Page) -> ChallengingDomPage:
     return ChallengingDomPage(page)
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_runtest_makereport(item, call):
+    """Capture a screenshot on test failure for UI tests."""
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call" and report.failed:
+        page = item.funcargs.get("page")
+        if page is not None:
+            screenshot_path = f"output/reports/{item.name}_failure.png"
+            try:
+                page.screenshot(path=screenshot_path, full_page=True)
+                print(f"\n[screenshot saved] {screenshot_path}")
+            except Exception:
+                pass
