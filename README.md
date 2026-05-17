@@ -10,7 +10,7 @@ A Python + Playwright UI automation framework built for the Duality Student Auto
 - ruff (lint + format)
 
 ## Repository hierarchy
-
+```
 duality-automation-framework/
 ├── src/framework/
 │   ├── config/         # BASE_URL and other settings, read from env vars
@@ -25,7 +25,7 @@ duality-automation-framework/
 │   └── data/           # Scenario 2 persisted JSON results
 ├── pyproject.toml      # uv + pytest + ruff config in one file
 └── .github/workflows/  # CI pipeline (see CI section below)
-
+```
 ## Setup
 Prerequisites: any OS, no Python required (uv will install it).
 
@@ -62,7 +62,7 @@ The HTML report writes to `output/reports/report.html` after every run. Failure 
 
 Test Scenario 2 JSON includes the running sum, per-click history with status, any failed buttons, and a `complete` flag indicating whether all clicks succeeded.
 
-# Architectural Decisions:
+## Architectural Decisions:
 
 ### Page Object Model
 
