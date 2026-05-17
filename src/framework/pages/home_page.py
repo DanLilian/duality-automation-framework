@@ -1,8 +1,15 @@
+
 from playwright.sync_api import expect
 from framework.pages.base_page import BasePage
 
 
 class HomePage(BasePage):
+    """Page object for the-internet.herokuapp.com home page.
+
+    The home page is the entry point for every test in the framework - every test
+    must navigate through the UI rather than deep-linking, so each navigable
+    destination is exposed here as a method.
+    """
     PATH: str = "/"
 
     def wait_for_loaded(self) -> None:

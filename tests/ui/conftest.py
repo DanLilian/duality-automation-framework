@@ -1,5 +1,10 @@
-# Pytest fixtures for UI tests
+"""Pytest fixtures for UI tests.
 
+Page-object fixtures live here rather than in the root conftest so they only
+load for UI tests. The home_page fixture auto-navigates to the home page;
+other page-object fixtures only construct, because reaching them is part of
+each test's scenario (per the assignment's UI-navigation requirement).
+"""
 import pytest
 from playwright.sync_api import Page
 

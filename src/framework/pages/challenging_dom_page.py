@@ -4,6 +4,19 @@ from framework.pages.base_page import BasePage
 
 
 class ChallengingDomPage(BasePage):
+    """Page object for /challenging_dom.
+
+    Two non-obvious aspects of this page documented here:
+
+    1. The three buttons are <a> tags styled via CSS classes ("button",
+       "button alert", "button success"), not <button> elements. The default
+       button has only "button" with no modifier, so we use :not() to exclude
+       the styled variants when targeting it.
+
+    2. The Answer value is rendered onto a <canvas> via inline JavaScript -
+       it's pixels, not DOM text. We read it back by parsing the inline
+       <script> tag's source for the strokeText() call. See read_answer().
+    """
     PATH: str = "/challenging_dom"
 
     BUTTON_VARIANTS = ("default", "alert", "success")

@@ -4,6 +4,11 @@ from framework.config.settings import BASE_URL
 
 
 class BasePage:
+    """Parent class for all page objects.
+
+    Subclasses override PATH (their route on the base URL) and wait_for_loaded
+    (a page-specific readiness check beyond the browser's load event).
+    """
     PATH: str = ""
 
     def __init__(self, page: Page) -> None:

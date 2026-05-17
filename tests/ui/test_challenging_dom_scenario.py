@@ -5,7 +5,13 @@ from framework.utils.persistence import save_scenario2_result
 
 
 def test_challenging_dom_sum_and_persist(home_page, challenging_dom_page):
-    """Navigate via UI; click each button twice (counted by Answer changes); sum and persist."""
+    """Navigate via UI; click each button twice (counted by Answer changes); sum and persist.
+
+    The click loop is wrapped in try/finally so that persistence runs even on
+    unexpected crashes, preserving diagnostic data for failure investigation.
+    The test still fails loudly at the end if any button hit retry exhaustion -
+    partial sums are persisted with `complete: false` to flag them clearly.
+    """
     home_page.click_challenging_dom_link()
     challenging_dom_page.wait_for_loaded()
 
