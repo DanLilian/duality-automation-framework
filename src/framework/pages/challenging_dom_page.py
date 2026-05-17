@@ -6,22 +6,32 @@ from framework.pages.base_page import BasePage
 class ChallengingDomPage(BasePage):
     PATH: str = "/challenging_dom"
 
-    # Button label → CSS class on the styled <a> element
     BUTTON_VARIANTS = ("default", "alert", "success")
 
     def wait_for_loaded(self) -> None:
         expect(self.page.get_by_role("heading", name="Challenging DOM")).to_be_visible()
 
     def click_button(self, variant: str) -> None:
-        """Click the button of the given variant: 'default', 'alert', or 'success'."""
-        self.page.locator(f"a.button.{variant}").first.click()
+        if variant == "default":
+            locator = self.page.locator("a.button:not(.alert):not(.success)")
+        elif variant == "alert":
+            locator = self.page.locator("a.button.alert")
+        elif variant == "success":
+            locator = self.page.locator("a.button.success")
+        else:
+            raise ValueError(f"Unknown button variant: {variant}")
+        locator.first.click()
 
     def read_answer(self) -> int:
-        """Return the current Answer numeric value."""
-        text = self.page.locator("#content .large-2.columns canvas").get_attribute("data-answer") or ""
-        if not text:
-            text = self.page.locator(".large-2.columns").inner_text()
-        match = re.search(r"\d+", text)
-        if not match:
-            raise ValueError(f"Could not parse answer from: {text!r}")
-        return int(match.group())
+        # The answer is rendered onto a <canvas> via JavaScript - it's pixels, not DOM text.
+        # However, the inline <script> tag that draws it contains the literal call:
+        #   canvas.strokeText('Answer: 80118', 90, 112);
+        # We read the script's text content and extract the number from there.
+        scripts = self.page.locator("script").all()
+        for script in scripts:
+            content = script.inner_text()
+            if "strokeText" in content and "Answer" in content:
+                match = re.search(r"Answer:\s*(\d+)", content)
+                if match:
+                    return int(match.group(1))
+        raise ValueError("Could not find Answer in any script tag on the page.")
